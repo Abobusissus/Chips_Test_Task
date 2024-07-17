@@ -1,14 +1,52 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.Eventing.Reader;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Runtime.Remoting.Services;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
+using System.Xml.Schema;
 
 namespace Ttask
 {
     internal class Program
     {
+
+        static int  MaxF(int[] chips, int amount_of_players)
+        {   
+            
+            int Max = 1;
+            int Max_ID = 0;
+
+            for (int i = 0; i < amount_of_players; i++)
+            {
+                if (chips[i] >= Max)
+                {
+                    Max = chips[i];
+                    Max_ID = i;
+                }
+            }
+            return Max_ID;
+
+        }
+
+        static int MinF(int[] chips, int amount_of_players)
+        {
+            int Min = 1;
+            int Min_ID = 0;
+            for (int i = 0; i < amount_of_players; i++)
+            {
+                if (chips[i] <= Min)
+                {
+                    Min = chips[i];
+                    Min_ID = i;
+                }
+                
+            }
+                return Min_ID;
+        }
         static void Main(string[] args)
         {
 
@@ -19,14 +57,16 @@ namespace Ttask
             int amount_of_players = inputstr.Length;
             int[] chips = new int[amount_of_players];
 
-            int amount_of_chips = 0;
-            int amount_of_moves = 0;
+            
 
             for (int i = 0; i < amount_of_players; i++)
             {
                 chips[i] = Convert.ToInt32(inputstr[i]);
-                amount_of_chips += chips[i];
+                
             }
+            int amount_of_chips  = chips.Sum(); ;
+            int amount_of_moves = 0;
+            int avg = amount_of_chips / amount_of_players;
 
             if (amount_of_chips % amount_of_players != 0)
             {
@@ -34,28 +74,72 @@ namespace Ttask
                 Console.ReadLine();
                 return;
             }
+            
+            int sort_count = chips.Where(x => x != null && x.Equals(avg)).Count();
 
-
-            int Min = 1;
-            int Max = 1;
-            int Min_ID = 0;
-            int Max_ID = 0;
-
-            for (int i = 0; i < amount_of_players; i++)
-            {
-                if (chips[i] < Min)
+                while (sort_count != chips.Count())
                 {
-                    Min = chips[i];
-                    Min_ID = i;
-                }
-                if (chips[i] > Max)
-                {
-                    Max = chips[i];
-                    Max_ID = i;
-                }
-            }
+                    int Max_ID = MaxF(chips, amount_of_players);
+                    int Min_ID = MinF(chips, amount_of_players);
+                    if (Min_ID < Max_ID)
+                    {
+                        if (Max_ID - Min_ID > amount_of_players / 2)
+                        {
+                            chips[Max_ID]--;
+                            if (Max_ID < amount_of_players - 1)
+                                Max_ID++;
 
-            Console.WriteLine($"{Min} , {Max}");
+                            else Max_ID = 0;
+                            chips[Max_ID]++;
+                        }
+
+                        else
+                        {
+                            chips[Max_ID]--;
+                            if (Max_ID > 0)
+                                Max_ID--;
+
+                            else Max_ID = amount_of_players - 1;
+                            chips[Max_ID]++;
+                        }
+                    
+                    
+                    }
+
+                    else
+                    {
+                        if (Min_ID - Max_ID <= amount_of_players / 2)
+                        {
+                            chips[Max_ID]--;
+                            if (Max_ID < amount_of_players - 1)
+                                Max_ID++;
+
+                            else Max_ID = 0;
+                            chips[Max_ID]++;
+                        }
+
+                        else
+                        {
+                            chips[Max_ID]--;
+                            if (Max_ID > 0)
+                                Max_ID--;
+
+                            else Max_ID = amount_of_players - 1;
+                            chips[Max_ID]++;
+                        }
+                    
+                    
+
+                }
+
+                    sort_count = chips.Where(x => x != null && x.Equals(avg)).Count();
+                    amount_of_moves++;
+
+                }
+
+             
+            Console.WriteLine($"Chips for each seat  {avg} ");
+            Console.WriteLine($"Chips  {amount_of_chips} ");
             Console.WriteLine($"Chips can be sorted in {amount_of_moves} moves");
             Console.ReadLine();
         }
