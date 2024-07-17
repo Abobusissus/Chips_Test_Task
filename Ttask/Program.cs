@@ -81,56 +81,62 @@ namespace Ttask
                 {
                     int Max_ID = MaxF(chips, amount_of_players);
                     int Min_ID = MinF(chips, amount_of_players);
-                    if (Min_ID < Max_ID)
+                if (Min_ID < Max_ID)
+                {
+                    if (Max_ID - Min_ID > amount_of_players / 2)
+                    {
+                        chips[Max_ID]--;
+                        if(Max_ID != amount_of_players - 1)
+                        {
+                            chips[Max_ID+1]++;
+                        }
+                        else
+                        {
+                            chips[0]++;
+                        }
+                    }
+                    else if (Max_ID - Min_ID <= amount_of_players / 2)
+                    {
+                        chips[Max_ID]--;
+                        if (Max_ID != 0)
+                        {
+                            chips[Max_ID-1]++;
+                        }
+                        else
+                        {
+                            chips[amount_of_players-1]++;
+                        }
+                    }
+                }
+                    if(Min_ID > Max_ID)
                     {
                         if (Max_ID - Min_ID > amount_of_players / 2)
                         {
                             chips[Max_ID]--;
-                            if (Max_ID < amount_of_players - 1)
-                                Max_ID++;
-
-                            else Max_ID = 0;
-                            chips[Max_ID]++;
+                            if (Max_ID != 0)
+                            {
+                                chips[Max_ID - 1]++;
+                            }
+                            else
+                            {
+                                chips[amount_of_players - 1]++;
+                            }
                         }
-
-                        else
+                        else if (Max_ID - Min_ID <= amount_of_players / 2)
                         {
                             chips[Max_ID]--;
-                            if (Max_ID > 0)
-                                Max_ID--;
-
-                            else Max_ID = amount_of_players - 1;
-                            chips[Max_ID]++;
+                            if (Max_ID != amount_of_players - 1)
+                                {
+                                    chips[Max_ID + 1]++;
+                                }
+                            else
+                                {
+                                chips[0]++;
+                                }
                         }
-                    
-                    
+
+
                     }
-
-                    else
-                    {
-                        if (Min_ID - Max_ID <= amount_of_players / 2)
-                        {
-                            chips[Max_ID]--;
-                            if (Max_ID < amount_of_players - 1)
-                                Max_ID++;
-
-                            else Max_ID = 0;
-                            chips[Max_ID]++;
-                        }
-
-                        else
-                        {
-                            chips[Max_ID]--;
-                            if (Max_ID > 0)
-                                Max_ID--;
-
-                            else Max_ID = amount_of_players - 1;
-                            chips[Max_ID]++;
-                        }
-                    
-                    
-
-                }
 
                     sort_count = chips.Where(x => x != null && x.Equals(avg)).Count();
                     amount_of_moves++;
