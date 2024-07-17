@@ -14,7 +14,7 @@ namespace Ttask
     internal class Program
     {
 
-        static int  MaxF(int[] chips, int amount_of_players)
+        static int  MaxF(int[] chips, int amount_of_players) //search for index with maximal value in array 
         {   
             
             int Max = 1;
@@ -32,7 +32,7 @@ namespace Ttask
 
         }
 
-        static int MinF(int[] chips, int amount_of_players)
+        static int MinF(int[] chips, int amount_of_players) //search for index with minimal value in array
         {
             int Min = 1;
             int Min_ID = 0;
@@ -52,40 +52,42 @@ namespace Ttask
 
 
             Console.Write("Enter amount of chips for each player, separate by commas \n");
-            string[] inputstr = Console.ReadLine().Split(',');
+            string[] inputstr = Console.ReadLine().Split(','); 
 
             int amount_of_players = inputstr.Length;
             int[] chips = new int[amount_of_players];
 
             
 
-            for (int i = 0; i < amount_of_players; i++)
+            for (int i = 0; i < amount_of_players; i++) //fill an array 
             {
                 chips[i] = Convert.ToInt32(inputstr[i]);
                 
             }
             int amount_of_chips  = chips.Sum(); ;
-            int amount_of_moves = 0;
-            int avg = amount_of_chips / amount_of_players;
+            int amount_of_moves = 0; // counter variable
+            
 
-            if (amount_of_chips % amount_of_players != 0)
+            if (amount_of_chips % amount_of_players != 0) //check for possibility of even distribution
             {
                 Console.WriteLine("Chips cannot be evenly distributed");
                 Console.ReadLine();
                 return;
             }
-            
-            int sort_count = chips.Where(x => x != null && x.Equals(avg)).Count();
+
+            int avg = amount_of_chips / amount_of_players; //calculate amount of cheaps for each seat
+
+            int sort_count = chips.Where(x => x != null && x.Equals(avg)).Count(); //variable sort count cantains amount of seats which have right amount of chips 
 
                 while (sort_count != chips.Count())
                 {
                     int Max_ID = MaxF(chips, amount_of_players);
                     int Min_ID = MinF(chips, amount_of_players);
-                if (Min_ID < Max_ID)
+                if (Min_ID < Max_ID) 
                 {
-                    if (Max_ID - Min_ID > amount_of_players / 2)
+                    if (Max_ID - Min_ID > amount_of_players / 2) // check for shortest path to minimal value 
                     {
-                        chips[Max_ID]--;
+                        chips[Max_ID]--; 
                         if(Max_ID != amount_of_players - 1)
                         {
                             chips[Max_ID+1]++;
@@ -95,7 +97,7 @@ namespace Ttask
                             chips[0]++;
                         }
                     }
-                    else if (Max_ID - Min_ID <= amount_of_players / 2)
+                    else if (Max_ID - Min_ID <= amount_of_players / 2) 
                     {
                         chips[Max_ID]--;
                         if (Max_ID != 0)
@@ -108,7 +110,7 @@ namespace Ttask
                         }
                     }
                 }
-                    if(Min_ID > Max_ID)
+                    if(Min_ID > Max_ID) 
                     {
                         if (Max_ID - Min_ID > amount_of_players / 2)
                         {
@@ -122,8 +124,8 @@ namespace Ttask
                                 chips[amount_of_players - 1]++;
                             }
                         }
-                        else if (Max_ID - Min_ID <= amount_of_players / 2)
-                        {
+                        else if (Max_ID - Min_ID <= amount_of_players / 2)  
+                    {
                             chips[Max_ID]--;
                             if (Max_ID != amount_of_players - 1)
                                 {
@@ -138,8 +140,9 @@ namespace Ttask
 
                     }
 
-                    sort_count = chips.Where(x => x != null && x.Equals(avg)).Count();
-                    amount_of_moves++;
+                    sort_count = chips.Where(x => x != null && x.Equals(avg)).Count(); // update variable 
+
+                    amount_of_moves++; 
 
                 }
 
