@@ -1,4 +1,5 @@
-!(https://github.com/Abobusissus/Chips_Test_Task/blob/master/Screenshot%202024-07-18%20041919.png)
+![](https://github.com/Abobusissus/Chips_Test_Task/blob/master/Screenshot%202024-07-18%20041919.png)
+
 C# realisation of this programming exercise 
 
 "Jose set up a circular poker table for his friends so that each of the seats at the table has the same number of poker chips.
