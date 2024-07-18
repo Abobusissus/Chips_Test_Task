@@ -125,7 +125,7 @@ namespace Ttask
                             }
                         }
                         else if (Max_ID - Min_ID <= amount_of_players / 2)  
-                    {
+                        {
                             chips[Max_ID]--;
                             if (Max_ID != amount_of_players - 1)
                                 {
@@ -139,6 +139,33 @@ namespace Ttask
 
 
                     }
+                        else
+                        {
+                    if (Max_ID - Min_ID > amount_of_players / 2)
+                    {
+                        chips[Max_ID]--;
+                        if (Max_ID != 0)
+                        {
+                            chips[Max_ID - 1]++;
+                        }
+                        else
+                        {
+                            chips[amount_of_players - 1]++;
+                        }
+                    }
+                    else if (Max_ID - Min_ID <= amount_of_players / 2)
+                    {
+                        chips[Max_ID]--;
+                        if (Max_ID != amount_of_players - 1)
+                        {
+                            chips[Max_ID + 1]++;
+                        }
+                        else
+                        {
+                            chips[0]++;
+                        }
+                    }
+                }
 
                     sort_count = chips.Where(x => x != null && x.Equals(avg)).Count(); // update variable 
 
