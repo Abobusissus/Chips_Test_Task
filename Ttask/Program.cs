@@ -59,12 +59,12 @@ namespace Ttask
 
             
 
-            for (int i = 0; i < amount_of_players; i++) //fill an array 
+            for (int i = 0; i < amount_of_players; i++) 
             {
-                chips[i] = Convert.ToInt32(inputstr[i]);
-                
+                chips[i] = Convert.ToInt32(inputstr[i]); //fill an array 
+
             }
-            int amount_of_chips  = chips.Sum(); ;
+            int amount_of_chips  = chips.Sum(); 
             int amount_of_moves = 0; // counter variable
             
 
