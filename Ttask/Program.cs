@@ -75,9 +75,9 @@ namespace Ttask
                 return;
             }
 
-            int avg = amount_of_chips / amount_of_players; //calculate amount of cheaps for each seat
+            int avg = amount_of_chips / amount_of_players; //calculate amount of chips for each seat
 
-            int sort_count = chips.Where(x => x != null && x.Equals(avg)).Count(); //variable sort count cantains amount of seats which have right amount of chips 
+            int sort_count = chips.Where(x => x != null && x.Equals(avg)).Count(); //variable sort count contains amount of seats which have right amount of chips 
 
                 while (sort_count != chips.Count())
                 {
